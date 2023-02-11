@@ -1,0 +1,18 @@
+site_name: My Docs
+theme:
+  name: material
+
+plugins:
+  - i18n: 
+      default_language: en
+      languages:
+        en: 
+          name: English
+          build: true
+        ja: 
+          name: Japanese
+          build: true
+
+extra:
+  version:
+    provider: mike
