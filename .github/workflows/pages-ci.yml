@@ -2,7 +2,7 @@ name: PAGES-CI
 on: [
   push, 
   delete,
-  pull_request,
+  pull_request_target,
 ]
 env:
   MIKE_BRANCH: gh-pages
@@ -29,7 +29,7 @@ jobs:
           git checkout ${TARGET_BRANCH}
           mike deploy $(basename ${TARGET_BRANCH})
       - name: Delete gh-pages
-        if: ${{ ( github.event_name == 'pull_request' && github.event.action == 'closed' ) || github.event_name == 'delete' }}
+        if: ${{ ( github.event_name == 'pull_request_target' && github.event.action == 'closed' ) || github.event_name == 'delete' }}
         run: |
           TARGET_BRANCH=${{ github.event.ref }}
           mike delete $(basename ${TARGET_BRANCH})
