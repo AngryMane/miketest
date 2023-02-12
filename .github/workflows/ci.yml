@@ -14,5 +14,6 @@ jobs:
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           mike deploy $(basename $(git rev-parse --abbrev-ref @))
+          mike set-default main
           git checkout gh-pages
           git push origin HEAD:gh-pages
