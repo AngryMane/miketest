@@ -1,6 +1,10 @@
 name: PAGES-CI
-on:
-  push:
+on: [
+  push, 
+  delete,
+  pull_request:
+    types: [closed]
+]
 env:
   MIKE_BRANCH: gh-pages
 jobs:
@@ -13,18 +17,24 @@ jobs:
           python-version: '3.8'
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
-      - name: Setup git config
+      - name: Setup mike
         run: |
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-      - name: Update gh-pages branch
-        if: ${{ github.ref_name != env.MIKE_BRANCH }}
-        run: |
           git fetch --all
+      - name: Update gh-pages
+        if: ${{ github.event_name == 'push' && github.ref_name != env.MIKE_BRANCH}}
+        run: |
           TARGET_BRANCH=$(git rev-parse --abbrev-ref @)
           git checkout -b ${MIKE_BRANCH} remotes/origin/${MIKE_BRANCH}
           git checkout ${TARGET_BRANCH}
           mike deploy $(basename ${TARGET_BRANCH})
+      - name: Delete gh-pages
+        if: ${{ github.event_name == 'pull_request' || github.event_name == 'delete' }}
+        run: |
+          echo ${{ github.event.ref }}
+      - name: push gh-pages
+        run: |
           mike set-default main
           git checkout ${MIKE_BRANCH}
           git push origin HEAD:${MIKE_BRANCH};
