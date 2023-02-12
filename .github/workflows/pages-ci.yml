@@ -1,10 +1,10 @@
-name: CI
+name: PAGES-CI
 on:
   push:
 env:
   MIKE_BRANCH: gh-pages
 jobs:
-  deploy:
+  update_pages:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
