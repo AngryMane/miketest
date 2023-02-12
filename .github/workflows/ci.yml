@@ -26,4 +26,4 @@ jobs:
           mike deploy $(basename ${TARGET_BRANCH})
           mike set-default main
           git checkout ${MIKE_BRANCH}
-          git push origin HEAD:${MIKE_BRANCH}
+          git push origin HEAD:${MIKE_BRANCH};
