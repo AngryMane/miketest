@@ -13,6 +13,6 @@ jobs:
       - run: |
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          mike deploy ${BRANCH_NAME}
+          mike deploy ${github.ref_name}
           git checkout gh-pages
           git push origin HEAD:gh-pages
