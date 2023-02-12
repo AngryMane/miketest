@@ -20,7 +20,7 @@ jobs:
       - name: Update gh-pages branch
         if: ${{ github.ref_name != env.MIKE_BRANCH }}
         run: |
-          mike deploy $(basename $(git rev-parse --abbrev-ref @))
+          mike deploy $(basename $(git rev-parse --abbrev-ref @)) --rebase
           mike set-default main
           git checkout ${MIKE_BRANCH}
           git push origin HEAD:${MIKE_BRANCH}
