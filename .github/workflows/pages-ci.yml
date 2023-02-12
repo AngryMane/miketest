@@ -2,8 +2,7 @@ name: PAGES-CI
 on: [
   push, 
   delete,
-  pull_request:
-    types: [closed]
+  pull_request: { types: closed },
 ]
 env:
   MIKE_BRANCH: gh-pages
